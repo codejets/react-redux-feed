@@ -26,6 +26,15 @@ function SimpleFeed (props) {
 }
 ```
 
+You can view a demo which loads gists for a user.
+
+```
+yarn
+yarn run storybook
+```
+
+If you don't have yarn installed, this [guide](https://yarnpkg.com/en/docs/getting-started) will help you.
+
 -  `name (string)` - An app can consist multiple feeds and each field must have a unique name
 
 -  `api (string | url)` - Valid url to load data from
