@@ -1,25 +1,21 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Provider from './decorators/reduxStore'
+import Provider from './decorators/reduxStore';
 import GistFeeds from './containers/GistFeeds';
 
-import Typography from 'typography'
-import bootstrap from './typography-theme-bootstrap'
+import Typography from 'typography';
+import bootstrap from './typography-theme-bootstrap';
 
-const typography = new Typography(bootstrap)
+const typography = new Typography(bootstrap);
 
 // Or insert styles directly into the <head> (works well for client-only
 // JS web apps.
-typography.injectStyles()
+typography.injectStyles();
 
 storiesOf('Feed', module)
-  .addDecorator(function (story) {
-    return (
-      <Provider story={story()} />
-    )
+  .addDecorator(function(story) {
+    return <Provider story={story()} />;
   })
-  .add('Public Gists', function () {
-    return (
-      <GistFeeds gistUsers={['hoodwink73', 'codejets', 'tanish2k']} />
-    )
-  })
+  .add('Public Gists', function() {
+    return <GistFeeds gistUsers={['gaearon', 'codejets', 'tanish2k']} />;
+  });

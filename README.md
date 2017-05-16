@@ -73,3 +73,4 @@ If you don't have yarn installed, this [guide](https://yarnpkg.com/en/docs/getti
 -  Dispatch actions if any item in a feed matches a criteria
 -  Group items in a feed
 -  Support async search for a feed
+-  Dispatch actions after bulk selection of items

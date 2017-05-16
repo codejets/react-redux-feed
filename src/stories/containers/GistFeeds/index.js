@@ -1,40 +1,47 @@
 import React, { Component } from 'react';
-import { Feed } from '../../../Feed'
-import Gist from '../../components/Gist'
-import GistIcon from 'react-icons/lib/go/gist'
+import { Feed } from '../../../Feed';
+import Gist from '../../components/Gist';
+import GistIcon from 'react-icons/lib/go/gist';
+import getPaginationConfigs from '../../modules/paginations/Gists/config';
 
-import { Div } from 'glamorous'
+import { Div } from 'glamorous';
 
 var feedsContainerStyle = {
   width: '100%',
   columns: '300px 3',
-  'margin': '30px'
-}
+  margin: '30px'
+};
 
-const getPublicGistForGithubuser = function (user) {
+const getPublicGistForGithubuser = function(user) {
   return `https://api.github.com/users/${user}/gists`;
 };
 
-var createGistFeedConfig = function (githubUserName) {
+var createGistFeedConfig = function(githubUserName) {
   return {
     name: `${githubUserName}Gists`,
-    api:  getPublicGistForGithubuser(githubUserName),
     itemComponent: Gist,
-    itemIdKey: 'id'
-  }
+    itemIdKey: 'id',
+    ...getPaginationConfigs(githubUserName)
+  };
 };
 
 export default class GistFeeds extends Component {
-  render () {
+  render() {
     var { gistUsers } = this.props;
     return (
-      <Div {...feedsContainerStyle} {...{columns: `300px ${gistUsers.length}`}}>
-        {gistUsers.map(function renderGistFeeds (githubUser) {
+      <Div
+        {...feedsContainerStyle}
+        {...{ columns: `300px ${gistUsers.length}` }}>
+        {gistUsers.map(function renderGistFeeds(githubUser) {
           return (
-            <Feed key={githubUser} {...createGistFeedConfig(githubUser)} headerIcon={GistIcon} />
-          )
+            <Feed
+              key={githubUser}
+              {...createGistFeedConfig(githubUser)}
+              headerIcon={GistIcon}
+            />
+          );
         })}
       </Div>
-    )
+    );
   }
 }
