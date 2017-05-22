@@ -69,16 +69,10 @@ export default class Feed extends Component {
       <Div {...containerStyle}>
         <H2 {...headerStyle}> {headerIcon()} {name} </H2>
         <Div {...itemsContainerStyle}>
-          {isFetching
-            ? <Div {...centerAlignLoader}>
-                <Spinner spinnerName="pulse" />
-              </Div>
-            : items.length > 0
-                ? <InfiniteLoadingStream
-                    {...this.props}
-                    loadNextPage={loadNextPage}
-                  />
-                : <span> No items </span>}
+          <InfiniteLoadingStream
+              {...this.props}
+              loadNextPage={loadNextPage}
+            />
         </Div>
 
       </Div>
