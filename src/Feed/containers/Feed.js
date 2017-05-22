@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import glamorous from 'glamorous';
 import Spinner from 'react-spinkit';
+import InfiniteLoadingStream from './InfiniteLoadingStream';
 
 const { Div, Ul, H2 } = glamorous;
 
@@ -55,8 +56,15 @@ export default class Feed extends Component {
       itemIdKey,
       name,
       isFetching,
-      headerIcon
+      hasMoreItems,
+      headerIcon,
+      fetchFeed
     } = this.props;
+
+    var loadNextPage = function() {
+      fetchFeed('below');
+    };
+
     return (
       <Div {...containerStyle}>
         <H2 {...headerStyle}> {headerIcon()} {name} </H2>
@@ -66,15 +74,10 @@ export default class Feed extends Component {
                 <Spinner spinnerName="pulse" />
               </Div>
             : items.length > 0
-                ? <Ul {...listStyle}>
-                    {items.map(function renderEachFeedItem(item) {
-                      return (
-                        <li key={item[itemIdKey]}>
-                          {itemComponent(item)}
-                        </li>
-                      );
-                    })}
-                  </Ul>
+                ? <InfiniteLoadingStream
+                    {...this.props}
+                    loadNextPage={loadNextPage}
+                  />
                 : <span> No items </span>}
         </Div>
 

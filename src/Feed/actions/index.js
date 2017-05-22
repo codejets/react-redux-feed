@@ -6,14 +6,15 @@ export const SUCCESS_RECEIVE_FEED = 'SUCCESS_RECEIVE_FEED';
 export const ERROR_RECEIVE_FEED = 'ERROR_RECEIVE_FEED';
 export const UPDATE_PAGINATION = 'UPDATE_PAGINATION';
 
-export function requestFeedActionCreator(feedName, direction) {
+export function requestFeedActionCreator(feedName, direction, endpoint) {
   return {
     type: REQUEST_FEED,
     payload: {
       feedName
     },
     meta: {
-      direction
+      direction,
+      endpoint
     }
   };
 }
@@ -68,13 +69,17 @@ export var fetchFeedThunkCreator = function(...config) {
 
   return function fetchFeedThunk(dispatch, getState) {
     var paginationDetails = getPaginationDetails(getState(), feedName);
-    var endpoint = getEndpoint(direction, paginationDetails);
+    var endpoint = getEndpoint(paginationDetails, direction);
 
-    if (paginationDetails && !paginationDetails.hasMoreItems) {
+    if (
+      paginationDetails &&
+      paginationDetails[direction] &&
+      !paginationDetails[direction].hasMoreItems
+    ) {
       return;
     }
 
-    dispatch(requestFeedActionCreator(feedName, direction));
+    dispatch(requestFeedActionCreator(feedName, direction, endpoint));
 
     // // memoize results
     // if (localStorage.getItem(`react-feed-playgroubd-${feedName}`)) {
@@ -87,8 +92,18 @@ export var fetchFeedThunkCreator = function(...config) {
 
     fetch(endpoint)
       .then(function(response) {
-        var nextPageUrl = updateEndpoint(response);
-        var _hasMoreItems = hasMoreItems(response, direction);
+        try {
+          var nextPageUrl = updateEndpoint(response);
+        } catch (e) {
+          throw new Error('Update endpoint has a problem', e);
+        }
+
+        try {
+          var _hasMoreItems = hasMoreItems(response, direction);
+        } catch (e) {
+          throw new Error('Update endpoint has a problem', e);
+        }
+
         if (!response.ok) {
           throw new Error({
             url: response.url,
@@ -96,16 +111,14 @@ export var fetchFeedThunkCreator = function(...config) {
           });
         }
 
-        if (nextPageUrl.length) {
-          dispatch(
-            updatePaginationDetails(
-              feedName,
-              direction,
-              nextPageUrl,
-              _hasMoreItems
-            )
-          );
-        }
+        dispatch(
+          updatePaginationDetails(
+            feedName,
+            direction,
+            nextPageUrl,
+            _hasMoreItems
+          )
+        );
 
         return response.json();
       })
@@ -117,7 +130,7 @@ export var fetchFeedThunkCreator = function(...config) {
         // );
       })
       .catch(function dispatchFailureFetchAction(error) {
-        dispatch(errorFeedActionCreator(feedName, error));
+        dispatch(errorFeedActionCreator(feedName, direction, error));
       });
   };
 };

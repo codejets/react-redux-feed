@@ -17,5 +17,9 @@ storiesOf('Feed', module)
     return <Provider story={story()} />;
   })
   .add('Public Gists', function() {
-    return <GistFeeds gistUsers={['gaearon', 'codejets', 'tanish2k']} />;
+    return (
+      <GistFeeds
+        gistUsers={['gaearon', 'codejets', 'hoodwink73']}
+      />
+    );
   });

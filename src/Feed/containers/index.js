@@ -7,8 +7,12 @@ import Feed from './Feed';
 var mapStateToProps = function(state, ownProps) {
   var feedName = ownProps.name;
   var isFetching = state.feeds.paginations[feedName]
-    ? state.feeds.paginations[feedName].isFetching
+    ? state.feeds.paginations[feedName].below.isFetching
     : false;
+  var moreItems = state.feeds.paginations[feedName]
+    ? state.feeds.paginations[feedName].below.hasMoreItems
+    : false;
+
   // if the feed has been already mounted, our
   // redux store will have an corresponding state slice
   // for the feed
@@ -16,12 +20,14 @@ var mapStateToProps = function(state, ownProps) {
     return {
       items: state.feeds.entities[feedName],
       isFetching,
+      moreItems,
       ...ownProps
     };
   } else {
     return {
       items: [],
       isFetching,
+      moreItems,
       ...ownProps
     };
   }

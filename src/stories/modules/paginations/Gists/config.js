@@ -10,17 +10,14 @@ export default function getPaginationConfigs(user) {
     getEndpoint(paginationState, direction = 'initial') {
       if (direction === 'initial') {
         return API_ENDPOINT(user);
-      } else if (direction === 'below') {
-        return paginationState.below;
-      } else if (direction === 'above') {
-        return paginationState.above;
+      } else {
+        return paginationState[direction].url;
       }
     },
     updateEndpoint(response, direction = 'initial') {
       var headers = response.headers;
       var details = parseLinkHeader(headers.get('Link'));
-
-      if (isNil(details)) {
+      if (isNil(details) || !details.next) {
         return '';
       }
 
@@ -36,7 +33,9 @@ export default function getPaginationConfigs(user) {
       var moreItems;
 
       // does not have details
-      if (isNil(details) || response.url === details.last.url) {
+      if (isNil(details) || !details.last) {
+        moreItems = false;
+      } else if (response.url === details.last.url) {
         moreItems = false;
       } else if (response.url !== details.last.url) {
         moreItems = true;
