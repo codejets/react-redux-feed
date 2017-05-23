@@ -92,6 +92,13 @@ export var fetchFeedThunkCreator = function(...config) {
 
     fetch(endpoint)
       .then(function(response) {
+        if (!response.ok) {
+          throw new Error({
+            url: response.url,
+            message: 'Not a successful request'
+          });
+        }
+
         try {
           var nextPageUrl = updateEndpoint(response);
         } catch (e) {
@@ -101,24 +108,27 @@ export var fetchFeedThunkCreator = function(...config) {
         try {
           var _hasMoreItems = hasMoreItems(response, direction);
         } catch (e) {
-          throw new Error('Update endpoint has a problem', e);
+          throw new Error('Your method to determine the existence of further pages is having a problem', e);
         }
 
-        if (!response.ok) {
-          throw new Error({
-            url: response.url,
-            message: 'Not a successful request'
-          });
-        }
+        // `updateEndpoint` and `hasMoreItems` which are provided
+        // by a user can return a Promise instead of a string or boolean
+        Promise.all([
+          Promise.resolve(nextPageUrl),
+          Promise.resolve(_hasMoreItems)
+        ])
+        .then(function ([nextPageUrl, _hasMoreItems]) {
+          dispatch(
+            updatePaginationDetails(
+              feedName,
+              direction,
+              nextPageUrl,
+              _hasMoreItems
+            )
+          );
+        })
 
-        dispatch(
-          updatePaginationDetails(
-            feedName,
-            direction,
-            nextPageUrl,
-            _hasMoreItems
-          )
-        );
+
 
         return response.json();
       })
