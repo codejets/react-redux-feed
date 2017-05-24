@@ -18,6 +18,7 @@ class InfiniteLoadingStream extends Component {
 	render() {
 		const {
 			items,
+			itemHeight = 130,
 			moreItems,
 			loadNextPage,
 			isNextPageLoading,
@@ -49,11 +50,11 @@ class InfiniteLoadingStream extends Component {
 			if (isRowLoaded({ index })) {
 				content = itemComponent(items[index])
 			} else {
-				content = moreItems && (
+				content =
+					moreItems &&
 					<Div {...centerAlignLoader}>
 						<Spinner spinnerName="pulse" />
 					</Div>
-				)
 			}
 
 			return (
@@ -77,7 +78,7 @@ class InfiniteLoadingStream extends Component {
 								height={height}
 								ref={registerChild}
 								rowCount={rowCount}
-								rowHeight={110}
+								rowHeight={itemHeight}
 								onRowsRendered={onRowsRendered}
 								rowRenderer={rowRenderer}
 							/>

@@ -1,25 +1,25 @@
-import React from 'react';
-import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Provider from './decorators/reduxStore';
-import GistFeeds from './containers/GistFeeds';
+import React from 'react'
+import { storiesOf, action, linkTo } from '@kadira/storybook'
+import Provider from './decorators/reduxStore'
+import GistFeeds from './containers/GistFeeds'
+import TwitterFeeds from './containers/TwitterFeeds'
 
-import Typography from 'typography';
-import bootstrap from './typography-theme-bootstrap';
+import Typography from 'typography'
+import bootstrap from './typography-theme-bootstrap'
 
-const typography = new Typography(bootstrap);
+const typography = new Typography(bootstrap)
 
 // Or insert styles directly into the <head> (works well for client-only
 // JS web apps.
-typography.injectStyles();
+typography.injectStyles()
 
 storiesOf('Feed', module)
-  .addDecorator(function(story) {
-    return <Provider story={story()} />;
-  })
-  .add('Public Gists', function() {
-    return (
-      <GistFeeds
-        gistUsers={['gaearon', 'codejets', 'hoodwink73']}
-      />
-    );
-  });
+	.addDecorator(function(story) {
+		return <Provider story={story()} />
+	})
+	.add('Public Gists', function() {
+		return <GistFeeds gistUsers={['gaearon', 'codejets', 'hoodwink73']} />
+	})
+	.add('Twitter Keyword Streams', function() {
+		return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
+	})
