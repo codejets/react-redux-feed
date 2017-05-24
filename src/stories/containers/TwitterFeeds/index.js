@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Feed } from '../../../Feed'
+import { Feed } from '../../../index'
 import Gist from '../../components/Gist'
 import Tweet from '../../components/Tweet'
 import TweetIcon from 'react-icons/lib/fa/twitter'
