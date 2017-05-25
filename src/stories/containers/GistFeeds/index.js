@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Feed } from '../../../index'
+import { Feed } from '../../../../dist'
 import Gist from '../../components/Gist'
 import GistIcon from 'react-icons/lib/go/gist'
 import getPaginationConfigs from '../../modules/paginations/Gists/config'

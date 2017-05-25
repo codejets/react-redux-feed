@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { feedsReducer } from '../../index'
+import { feedsReducer } from '../../../dist'
 import thunk from 'redux-thunk'
 
 export default function() {

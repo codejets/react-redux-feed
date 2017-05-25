@@ -1,23 +1,31 @@
 {
   "name": "react-redux-feed",
+  "description": "An higher order component to create and maintain feeds with react and redux from any data source",
+  "main": "dist/index.js",
+  "author": "Arijit Bhattacharya <hoodwink73@live.com>",
+  "user": "hoodwink73",
+  "license": "MIT",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
-    "glamor": "^2.20.25",
-    "glamorous": "^3.13.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "react-virtualized": "^9.7.5",
     "redux": "^3.6.0",
+    "glamor": "^2.20.25",
+    "glamorous": "^3.13.3",
+    "react-virtualized": "^9.7.5",
     "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
     "@kadira/storybook-addon-knobs": "^1.7.1",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "date-fns": "^1.28.4",
     "express": "^4.15.3",
+    "np": "^2.15.0",
+    "npm": "^4.6.1",
     "parse-link-header": "^1.0.0",
     "react-icons": "^2.2.4",
     "react-scripts": "1.0.5",
@@ -28,10 +36,27 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "dist": "babel lib -d dist",
+    "publish": "np ",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "dev-server": "node ./server/index.js"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/airwoot/react-redux-feed"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "redux",
+    "react-component",
+    "list",
+    "infinite",
+    "virtualized",
+    "feeds",
+    "stream"
+  ]
 }
