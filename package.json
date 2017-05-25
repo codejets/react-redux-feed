@@ -7,13 +7,14 @@
   "license": "MIT",
   "version": "0.1.0",
   "dependencies": {
+    "glamor": "^2.20.25",
+    "glamorous": "^3.13.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0",
-    "glamor": "^2.20.25",
-    "glamorous": "^3.13.3",
+    "react-redux-feed": "^0.1.0",
     "react-virtualized": "^9.7.5",
+    "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
@@ -37,12 +38,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "dist": "babel lib -d dist",
-    "publish": "np ",
+    "prepublish": "babel lib -d dist",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "dev-server": "node ./server/index.js"
+    "dev-server": "node ./server/index.js",
+    "release": "np"
   },
   "repository": {
     "type": "git",

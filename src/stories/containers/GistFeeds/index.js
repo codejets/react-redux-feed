@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Feed } from '../../../../dist'
+import { Feed } from 'react-redux-feed'
 import Gist from '../../components/Gist'
 import GistIcon from 'react-icons/lib/go/gist'
 import getPaginationConfigs from '../../modules/paginations/Gists/config'

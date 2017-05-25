@@ -2061,14 +2061,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.2, create-react-class@^15.5.x:
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.2.tgz#6a8758348df660b88326a0e764d569f274aad681"
-  dependencies:
-    fbjs "^0.8.9"
-    object-assign "^4.1.1"
-
-create-react-class@^15.5.3:
+create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.5.x:
   version "15.5.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.3.tgz#fb0f7cae79339e9a179e194ef466efa3923820fe"
   dependencies:
@@ -6144,13 +6137,13 @@ promzard@^0.3.0:
   dependencies:
     read "1"
 
-prop-types@15.5.8, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8:
+prop-types@15.5.8:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
     fbjs "^0.8.9"
 
-prop-types@^15.5.10, prop-types@~15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -6405,6 +6398,20 @@ react-onclickoutside@^5.9.0:
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.11.1.tgz#00314e52567cf55faba94cabbacd119619070623"
   dependencies:
     create-react-class "^15.5.x"
+
+react-redux-feed@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-redux-feed/-/react-redux-feed-0.1.0.tgz#ff106f9bd373711c7c6548b6825e3a5ccc7b7c1e"
+  dependencies:
+    glamor "^2.20.25"
+    glamorous "^3.13.3"
+    react "^15.5.4"
+    react-dom "^15.5.4"
+    react-redux "^5.0.4"
+    react-virtualized "^9.7.5"
+    redux "^3.6.0"
+    redux-thunk "^2.2.0"
+    whatwg-fetch "^2.0.3"
 
 react-redux@^5.0.4:
   version "5.0.5"

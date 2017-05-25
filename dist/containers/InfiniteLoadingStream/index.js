@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _jsxFileName = 'lib/containers/InfiniteLoadingStream/index.js';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -48,6 +52,8 @@ var InfiniteLoadingStream = function (_Component) {
 	_createClass(InfiniteLoadingStream, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var _props = this.props;
 			var items = _props.items;
 			var _props$itemHeight = _props.itemHeight;
@@ -89,14 +95,30 @@ var InfiniteLoadingStream = function (_Component) {
 				} else {
 					content = moreItems && _react2.default.createElement(
 						Div,
-						centerAlignLoader,
-						_react2.default.createElement(_reactSpinkit2.default, { spinnerName: 'pulse' })
+						_extends({}, centerAlignLoader, {
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 55
+							},
+							__self: _this2
+						}),
+						_react2.default.createElement(_reactSpinkit2.default, { spinnerName: 'pulse', __source: {
+								fileName: _jsxFileName,
+								lineNumber: 56
+							},
+							__self: _this2
+						})
 					);
 				}
 
 				return _react2.default.createElement(
 					'div',
-					{ key: key, style: style },
+					{ key: key, style: style, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 61
+						},
+						__self: _this2
+					},
 					content
 				);
 			};
@@ -106,14 +128,25 @@ var InfiniteLoadingStream = function (_Component) {
 				{
 					isRowLoaded: isRowLoaded,
 					loadMoreRows: loadMoreRows,
-					rowCount: rowCount
+					rowCount: rowCount,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 68
+					},
+					__self: this
 				},
 				function (_ref3) {
 					var onRowsRendered = _ref3.onRowsRendered;
 					var registerChild = _ref3.registerChild;
 					return _react2.default.createElement(
 						_reactVirtualized.AutoSizer,
-						null,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 74
+							},
+							__self: _this2
+						},
 						function (_ref4) {
 							var height = _ref4.height;
 							var width = _ref4.width;
@@ -124,7 +157,12 @@ var InfiniteLoadingStream = function (_Component) {
 								rowCount: rowCount,
 								rowHeight: itemHeight,
 								onRowsRendered: onRowsRendered,
-								rowRenderer: rowRenderer
+								rowRenderer: rowRenderer,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 76
+								},
+								__self: _this2
 							});
 						}
 					);
