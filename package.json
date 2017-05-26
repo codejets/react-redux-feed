@@ -9,6 +9,7 @@
   "dependencies": {
     "glamor": "^2.20.25",
     "glamorous": "^3.13.3",
+    "is-url": "^1.2.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
