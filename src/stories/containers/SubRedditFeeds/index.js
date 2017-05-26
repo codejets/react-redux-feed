@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Subreddit from '../../components/Subreddit'
 import redditIcon from 'react-icons/lib/fa/reddit'
-import getPaginationConfigs from '../../modules/paginations/Subreddit/config'
+import getPaginationConfigs from '../../configs/Subreddit'
 
 import { Div } from 'glamorous'
 
@@ -25,7 +25,6 @@ var createSubredditFeedConfig = function(keyword) {
 export default class SubRedditFeeds extends Component {
   render() {
     var { keywords } = this.props
-    console.log(keywords.length)
     return (
       <Div
         {...feedsContainerStyle}

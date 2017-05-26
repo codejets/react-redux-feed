@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Gist from '../../components/Gist'
 import GistIcon from 'react-icons/lib/go/gist'
-import getPaginationConfigs from '../../modules/paginations/Gists/config'
+import getPaginationConfigs from '../../configs/Gists'
+
+console.log(getPaginationConfigs)
 
 import { Div } from 'glamorous'
 
@@ -10,10 +12,6 @@ var feedsContainerStyle = {
   width: '100%',
   columns: '300px 3',
   margin: '30px'
-}
-
-const getPublicGistForGithubuser = function(user) {
-  return `https://api.github.com/users/${user}/gists`
 }
 
 var createGistFeedConfig = function(githubUserName) {

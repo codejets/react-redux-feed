@@ -3,7 +3,7 @@ import { Feed } from '../../../../lib'
 import Gist from '../../components/Gist'
 import Tweet from '../../components/Tweet'
 import TweetIcon from 'react-icons/lib/fa/twitter'
-import getPaginationConfigs from '../../modules/paginations/Tweets/config'
+import getPaginationConfigs from '../../configs/Tweets'
 
 import { Div } from 'glamorous'
 
