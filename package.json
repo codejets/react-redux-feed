@@ -45,7 +45,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "dev-server": "node ./server/index.js",
-    "release": "np --yolo --no-yarn"
+    "release": "np --yolo --no-yarn --no-publish && npm publish"
   },
   "repository": {
     "type": "git",
