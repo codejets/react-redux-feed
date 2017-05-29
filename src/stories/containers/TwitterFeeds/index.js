@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Gist from '../../components/Gist'
+import Header from '../../components/Header'
 import Tweet from '../../components/Tweet'
 import TweetIcon from 'react-icons/lib/fa/twitter'
 import getPaginationConfigs from '../../configs/Tweets'
@@ -14,9 +15,13 @@ var feedsContainerStyle = {
 }
 
 var createTweetsFeedConfig = function(keyword) {
+  var name = `${keyword} Tweets`
   return {
-    name: `${keyword}Tweets`,
+    name,
     itemComponent: Tweet,
+    headerComponent: function() {
+      return Header({ name, iconComponent: TweetIcon })
+    },
     itemIdKey: 'id_str',
     itemHeight: 120,
     ...getPaginationConfigs(keyword)

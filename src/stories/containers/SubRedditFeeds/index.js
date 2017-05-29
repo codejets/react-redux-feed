@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
+import Header from '../../components/Header'
 import Subreddit from '../../components/Subreddit'
 import redditIcon from 'react-icons/lib/fa/reddit'
 import getPaginationConfigs from '../../configs/Subreddit'
@@ -13,9 +14,13 @@ var feedsContainerStyle = {
 }
 
 var createSubredditFeedConfig = function(keyword) {
+  var name = `${keyword} Subreddit`
   return {
-    name: `${keyword} Subreddit`,
+    name,
     itemComponent: Subreddit,
+    headerComponent: function() {
+      return Header({ name, iconComponent: redditIcon })
+    },
     itemIdKey: 'id_str',
     itemHeight: 120,
     ...getPaginationConfigs(keyword)
