@@ -5,8 +5,6 @@ const headerStyle = {
   borderBottom: '1px solid whitesmoke',
   padding: '20px'
 }
-{
-}
 
 export default function Header({ name, iconComponent }) {
   return (

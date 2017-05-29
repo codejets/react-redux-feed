@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Header from '../../components/Header'
+import Spinner from 'react-spinkit'
 import Gist from '../../components/Gist'
 import GistIcon from 'react-icons/lib/go/gist'
 import getPaginationConfigs from '../../configs/Gists'
@@ -22,6 +23,9 @@ var createGistFeedConfig = function(githubUserName) {
       return Header({ name, iconComponent: GistIcon })
     },
     itemIdKey: 'id',
+    loaderComponent: function() {
+      return <Spinner spinnerName="pulse" />
+    },
     ...getPaginationConfigs(githubUserName)
   }
 }

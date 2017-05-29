@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Gist from '../../components/Gist'
 import Header from '../../components/Header'
+import Spinner from 'react-spinkit'
 import Tweet from '../../components/Tweet'
 import TweetIcon from 'react-icons/lib/fa/twitter'
 import getPaginationConfigs from '../../configs/Tweets'
@@ -24,6 +25,7 @@ var createTweetsFeedConfig = function(keyword) {
     },
     itemIdKey: 'id_str',
     itemHeight: 120,
+
     ...getPaginationConfigs(keyword)
   }
 }

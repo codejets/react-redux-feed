@@ -18,24 +18,24 @@ const divStyle = {
 }
 
 storiesOf('Feed', module)
-	.addDecorator(function(story) {
-		return <Provider story={story()} />
-	})
-	.add('Public Gists', function() {
-		return <GistFeeds gistUsers={['gaearon', 'codejets', 'hoodwink73']} />
-	})
-	.add('Twitter Keyword Streams', function() {
-		return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
-	})
-	.add('Subreddit Feeds', function() {
-		return <SubRedditFeeds keywords={['Design', 'StarWars', 'javascript']} />
-	})
-	.add('Subreddit, Twitter and Gist Feeds', function() {
-		return (
-			<div style={divStyle}>
-				<SubRedditFeeds keywords={['Design']} />
-				<TwitterFeeds keywords={['jsconf']} />
-				<GistFeeds gistUsers={['gaearon']} />
-			</div>
-		)
-	})
+  .addDecorator(function(story) {
+    return <Provider story={story()} />
+  })
+  .add('Public Gists', function() {
+    return <GistFeeds gistUsers={['gaearon']} />
+  })
+  .add('Twitter Keyword Streams', function() {
+    return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
+  })
+  .add('Subreddit Feeds', function() {
+    return <SubRedditFeeds keywords={['Design', 'StarWars', 'javascript']} />
+  })
+  .add('Subreddit, Twitter and Gist Feeds', function() {
+    return (
+      <div style={divStyle}>
+        <SubRedditFeeds keywords={['Design']} />
+        <TwitterFeeds keywords={['jsconf']} />
+        <GistFeeds gistUsers={['gaearon']} />
+      </div>
+    )
+  })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
 import Header from '../../components/Header'
+import Spinner from 'react-spinkit'
 import Subreddit from '../../components/Subreddit'
 import redditIcon from 'react-icons/lib/fa/reddit'
 import getPaginationConfigs from '../../configs/Subreddit'
@@ -23,6 +24,9 @@ var createSubredditFeedConfig = function(keyword) {
     },
     itemIdKey: 'id_str',
     itemHeight: 120,
+    loaderComponent: function() {
+      return <Spinner spinnerName="pulse" />
+    },
     ...getPaginationConfigs(keyword)
   }
 }
