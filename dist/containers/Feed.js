@@ -16,10 +16,6 @@ var _glamorous = require('glamorous');
 
 var _glamorous2 = _interopRequireDefault(_glamorous);
 
-var _reactSpinkit = require('react-spinkit');
-
-var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
-
 var _InfiniteLoadingStream = require('./InfiniteLoadingStream');
 
 var _InfiniteLoadingStream2 = _interopRequireDefault(_InfiniteLoadingStream);
@@ -34,7 +30,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Div = _glamorous2.default.Div;
 var Ul = _glamorous2.default.Ul;
-var H2 = _glamorous2.default.H2;
 
 
 var containerStyle = {
@@ -51,11 +46,6 @@ var itemsContainerStyle = {
   height: '500px',
   overflow: 'auto',
 
-  padding: '20px'
-};
-
-var headerStyle = {
-  borderBottom: '1px solid whitesmoke',
   padding: '20px'
 };
 
@@ -98,6 +88,7 @@ var Feed = function (_Component) {
       var isFetching = _props.isFetching;
       var hasMoreItems = _props.hasMoreItems;
       var headerIcon = _props.headerIcon;
+      var headerComponent = _props.headerComponent;
       var fetchFeed = _props.fetchFeed;
 
 
@@ -109,20 +100,10 @@ var Feed = function (_Component) {
         Div,
         containerStyle,
         _react2.default.createElement(
-          H2,
-          headerStyle,
-          ' ',
-          headerIcon(),
-          ' ',
-          name,
-          ' '
-        ),
-        _react2.default.createElement(
           Div,
           itemsContainerStyle,
-          _react2.default.createElement(_InfiniteLoadingStream2.default, _extends({}, this.props, {
-            loadNextPage: loadNextPage
-          }))
+          headerComponent ? headerComponent() : null,
+          _react2.default.createElement(_InfiniteLoadingStream2.default, _extends({}, this.props, { loadNextPage: loadNextPage }))
         )
       );
     }

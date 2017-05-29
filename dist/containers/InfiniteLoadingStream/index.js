@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -11,10 +11,6 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _reactVirtualized = require('react-virtualized');
-
-var _reactSpinkit = require('react-spinkit');
-
-var _reactSpinkit2 = _interopRequireDefault(_reactSpinkit);
 
 var _glamorous = require('glamorous');
 
@@ -32,108 +28,113 @@ var Div = _glamorous2.default.Div;
 
 
 var centerAlignLoader = {
-	width: '30px',
-	margin: 'auto'
+  width: '30px',
+  margin: 'auto'
 };
 
 var InfiniteLoadingStream = function (_Component) {
-	_inherits(InfiniteLoadingStream, _Component);
+  _inherits(InfiniteLoadingStream, _Component);
 
-	function InfiniteLoadingStream(props) {
-		_classCallCheck(this, InfiniteLoadingStream);
+  function InfiniteLoadingStream(props) {
+    _classCallCheck(this, InfiniteLoadingStream);
 
-		return _possibleConstructorReturn(this, (InfiniteLoadingStream.__proto__ || Object.getPrototypeOf(InfiniteLoadingStream)).call(this, props));
-	}
+    return _possibleConstructorReturn(this, (InfiniteLoadingStream.__proto__ || Object.getPrototypeOf(InfiniteLoadingStream)).call(this, props));
+  }
 
-	_createClass(InfiniteLoadingStream, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props;
-			var items = _props.items;
-			var _props$itemHeight = _props.itemHeight;
-			var itemHeight = _props$itemHeight === undefined ? 130 : _props$itemHeight;
-			var moreItems = _props.moreItems;
-			var loadNextPage = _props.loadNextPage;
-			var isNextPageLoading = _props.isNextPageLoading;
-			var itemComponent = _props.itemComponent;
+  _createClass(InfiniteLoadingStream, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props;
+      var items = _props.items;
+      var _props$itemHeight = _props.itemHeight;
+      var itemHeight = _props$itemHeight === undefined ? 130 : _props$itemHeight;
+      var moreItems = _props.moreItems;
+      var loadNextPage = _props.loadNextPage;
+      var isNextPageLoading = _props.isNextPageLoading;
+      var itemComponent = _props.itemComponent;
+      var loaderComponent = _props.loaderComponent;
 
-			// If there are more items to be loaded then add
-			// an extra row to hold a loading indicator or
-			// the show an item to say that there is no more
-			// items to load
+      // If there are more items to be loaded then add
+      // an extra row to hold a loading indicator or
+      // the show an item to say that there is no more
+      // items to load
 
-			var rowCount = items.length + 1;
+      var rowCount = items.length + 1;
 
-			// Only load 1 page of items at a time.
-			// Pass an empty callback to InfiniteLoader in case it asks us
-			// to load more than once.
-			var loadMoreRows = isNextPageLoading || !moreItems ? function () {} : loadNextPage;
+      // Only load 1 page of items at a time.
+      // Pass an empty callback to InfiniteLoader in case it asks us
+      // to load more than once.
+      var loadMoreRows = isNextPageLoading || !moreItems ? function () {} : loadNextPage;
 
-			// Every row is loaded except for our loading indicator row.
-			var isRowLoaded = function isRowLoaded(_ref) {
-				var index = _ref.index;
+      // Every row is loaded except for our loading indicator row.
+      var isRowLoaded = function isRowLoaded(_ref) {
+        var index = _ref.index;
 
-				return !!items[index];
-			};
+        return !!items[index];
+      };
 
-			// Render a list item or a loading indicator.
-			var rowRenderer = function rowRenderer(_ref2) {
-				var index = _ref2.index;
-				var key = _ref2.key;
-				var style = _ref2.style;
+      // Render a list item or a loading indicator.
+      var rowRenderer = function rowRenderer(_ref2) {
+        var index = _ref2.index;
+        var key = _ref2.key;
+        var style = _ref2.style;
 
-				var content = void 0;
+        var content = void 0;
 
-				if (isRowLoaded({ index: index })) {
-					content = itemComponent(items[index]);
-				} else {
-					content = moreItems && _react2.default.createElement(
-						Div,
-						centerAlignLoader,
-						_react2.default.createElement(_reactSpinkit2.default, { spinnerName: 'pulse' })
-					);
-				}
+        if (isRowLoaded({ index: index })) {
+          content = itemComponent(items[index]);
+        } else {
+          content = moreItems && _react2.default.createElement(
+            Div,
+            centerAlignLoader,
+            loaderComponent ? loaderComponent() : 'Loading'
+          );
+        }
 
-				return _react2.default.createElement(
-					'div',
-					{ key: key, style: style },
-					content
-				);
-			};
+        return _react2.default.createElement(
+          'div',
+          { key: key, style: style },
+          content
+        );
+      };
 
-			return _react2.default.createElement(
-				_reactVirtualized.InfiniteLoader,
-				{
-					isRowLoaded: isRowLoaded,
-					loadMoreRows: loadMoreRows,
-					rowCount: rowCount
-				},
-				function (_ref3) {
-					var onRowsRendered = _ref3.onRowsRendered;
-					var registerChild = _ref3.registerChild;
-					return _react2.default.createElement(
-						_reactVirtualized.AutoSizer,
-						null,
-						function (_ref4) {
-							var height = _ref4.height;
-							var width = _ref4.width;
-							return _react2.default.createElement(_reactVirtualized.List, {
-								width: width,
-								height: height,
-								ref: registerChild,
-								rowCount: rowCount,
-								rowHeight: itemHeight,
-								onRowsRendered: onRowsRendered,
-								rowRenderer: rowRenderer
-							});
-						}
-					);
-				}
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        _reactVirtualized.InfiniteLoader,
+        {
+          isRowLoaded: isRowLoaded,
+          loadMoreRows: loadMoreRows,
+          rowCount: rowCount
+        },
+        function (_ref3) {
+          var onRowsRendered = _ref3.onRowsRendered;
+          var registerChild = _ref3.registerChild;
+          return _react2.default.createElement(
+            _reactVirtualized.AutoSizer,
+            null,
+            function (_ref4) {
+              var height = _ref4.height;
+              var width = _ref4.width;
+              return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_reactVirtualized.List, {
+                  width: width,
+                  height: height,
+                  ref: registerChild,
+                  rowCount: rowCount,
+                  rowHeight: itemHeight,
+                  onRowsRendered: onRowsRendered,
+                  rowRenderer: rowRenderer
+                })
+              );
+            }
+          );
+        }
+      );
+    }
+  }]);
 
-	return InfiniteLoadingStream;
+  return InfiniteLoadingStream;
 }(_react.Component);
 
 exports.default = InfiniteLoadingStream;
