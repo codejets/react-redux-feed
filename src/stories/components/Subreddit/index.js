@@ -26,8 +26,7 @@ var SubredditDateStyle = {
 
 
 export default function Subreddit(props) {
-	var { id, title, selftext, author, created_utc } = props.data
-	console.log(title)
+	var { id, title, selftext, author, created_utc } = props
 	return (
 		<Div {...SubredditCardStyle}>
 			<Div {...SubredditTitleStyle}>{title}</Div>

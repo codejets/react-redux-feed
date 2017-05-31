@@ -27,7 +27,9 @@ export default function getFeedConfig(keyword) {
       if (isNil(results)) {
         return []
       } else {
-        return results.data.children
+        return results.data.children.map(function (item) {
+          return item.data
+        })
       }
     },
     getInitialEndpoint(getState) {
