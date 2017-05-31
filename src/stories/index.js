@@ -22,7 +22,7 @@ storiesOf('Feed', module)
     return <Provider story={story()} />
   })
   .add('Public Gists', function() {
-    return <GistFeeds gistUsers={['gaearon']} />
+    return <GistFeeds gistUsers={['gaearon', 'wycats', 'developit']} />
   })
   .add('Twitter Keyword Streams', function() {
     return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
