@@ -32,24 +32,20 @@ export default function getFeedConfig(keyword) {
     getInitialEndpoint(getState) {
       return API_ENDPOINT(keyword)
     },
-    updateEndpoint(response, direction = 'initial') {
-      return response.json().then(function(tweets) {
-        return `${API_ENDPOINT(keyword)}${tweets.search_metadata.next_results}`
-      })
+    updateEndpoint({results}) {
+      var newEndpoint = `${API_ENDPOINT(keyword)}${results.search_metadata.next_results}`
+
+      return newEndpoint
     },
-    hasMoreItems(response, direction = 'initial') {
-      if (isNil(response)) {
+    hasMoreItems({results}) {
+      if (isNil(results)) {
         return false
       }
 
-      return response.json().then(function(searchResults) {
-        return searchResults.search_metadata.next_results &&
-          searchResults.search_metadata.next_results.length > 0
-          ? true
-          : false
-      })
-
-      return false
+      return results.search_metadata.next_results &&
+        results.search_metadata.next_results.length > 0
+        ? true
+        : false
     }
   }
 }

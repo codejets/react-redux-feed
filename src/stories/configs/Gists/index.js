@@ -26,8 +26,7 @@ export default function getFeedConfig(user) {
 		getInitialEndpoint(getState) {
 			return API_ENDPOINT(user)
 		},
-		updateEndpoint(response, direction = 'initial') {
-			var headers = response.headers
+		updateEndpoint({headers}) {
 			var details = parseLinkHeader(headers.get('Link'))
 			if (isNil(details) || !details.next) {
 				return ''
@@ -35,21 +34,20 @@ export default function getFeedConfig(user) {
 
 			return details.next.url
 		},
-		hasMoreItems(response, direction = 'initial') {
-			if (isNil(response)) {
+		hasMoreItems({headers, results}) {
+			if (isNil(results)) {
 				return false
 			}
 
-			var headers = response.headers
 			var details = parseLinkHeader(headers.get('Link'))
 			var moreItems
 
 			// does not have details
 			if (isNil(details) || !details.last) {
 				moreItems = false
-			} else if (response.url === details.last.url) {
+			} else if (results.url === details.last.url) {
 				moreItems = false
-			} else if (response.url !== details.last.url) {
+			} else if (results.url !== details.last.url) {
 				moreItems = true
 			}
 

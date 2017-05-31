@@ -33,21 +33,15 @@ export default function getFeedConfig(keyword) {
     getInitialEndpoint(getState) {
       return API_ENDPOINT(keyword)
     },
-    updateEndpoint(response, direction = 'initial') {
-      return response.json().then(function(results) {
+    updateEndpoint({results}) {
         return `${API_ENDPOINT(keyword)}?after=${results.data.after}`
-      })
     },
-    hasMoreItems(response, direction = 'initial') {
-      if (isNil(response)) {
+    hasMoreItems({results}) {
+      if (isNil(results)) {
         return false
       }
 
-      return response.json().then(function(results) {
-        return results.data.after ? true : false
-      })
-
-      return false
+      return results.data.after ? true : false
     }
   }
 }
