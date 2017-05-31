@@ -1,5 +1,6 @@
 var express = require('express')
 var Twit = require('twit')
+var url = require('url')
 var _ = require('lodash')
 var twitterAuth = require('./.twitterAuth.js')
 
@@ -16,8 +17,8 @@ app.get('/', function(req, res) {
 })
 
 app.get('/tweets/:keyword', function(req, res) {
-	var searchKeyword = req.params.keyword
-	T.get('search/tweets', { q: searchKeyword, count: 20 }, function(
+
+	T.get('search/tweets', _.assign(req.query, { q: req.params.keyword}), function(
 		err,
 		data,
 		response
