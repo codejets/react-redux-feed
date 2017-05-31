@@ -1,11 +1,27 @@
+import React from 'react'
+import Header from '../../components/Header'
+import Spinner from 'react-spinkit'
+import Tweet from '../../components/Tweet'
+import TweetIcon from 'react-icons/lib/fa/twitter'
 import { isNil } from 'lodash'
 
 const API_ENDPOINT = function(keyword) {
-  return `https://dist-dfwbzmpgwb.now.sh/api/tweets/${keyword}`
+  return `http://localhost:3000/tweets/${keyword}`
 }
 
-export default function getPaginationConfigs(keyword) {
+export default function getFeedConfig(keyword) {
+  var name = `${keyword}Tweets`
   return {
+    name,
+    itemComponent: Tweet,
+    itemIdKey: 'id_str',
+    itemHeight: 120,
+    headerComponent: function() {
+      return Header({ name, iconComponent: TweetIcon })
+    },
+    loaderComponent: function() {
+      return <Spinner spinnerName="pulse" fadeIn={0} />
+    },
     getItems(searchResults) {
       if (isNil(searchResults)) {
         return []

@@ -1,33 +1,12 @@
 import React, { Component } from 'react'
 import { Feed } from '../../../../lib'
-import Header from '../../components/Header'
-import Spinner from 'react-spinkit'
-import Gist from '../../components/Gist'
-import GistIcon from 'react-icons/lib/go/gist'
-import getPaginationConfigs from '../../configs/Gists'
-
+import getFeedConfig from '../../configs/Gists'
 import { Div } from 'glamorous'
 
 var feedsContainerStyle = {
   width: '100%',
   columns: '300px 3',
   margin: '30px'
-}
-
-var createGistFeedConfig = function(githubUserName) {
-  var name = `${githubUserName} Gists`
-  return {
-    name,
-    itemComponent: Gist,
-    headerComponent: function() {
-      return Header({ name, iconComponent: GistIcon })
-    },
-    itemIdKey: 'id',
-    loaderComponent: function() {
-      return <Spinner spinnerName="pulse" />
-    },
-    ...getPaginationConfigs(githubUserName)
-  }
 }
 
 export default class GistFeeds extends Component {
@@ -39,7 +18,7 @@ export default class GistFeeds extends Component {
         {...{ columns: `300px ${gistUsers.length}` }}
       >
         {gistUsers.map(function renderGistFeeds(githubUser) {
-          return <Feed key={githubUser} {...createGistFeedConfig(githubUser)} />
+          return <Feed key={githubUser} {...getFeedConfig(githubUser)} />
         })}
       </Div>
     )
