@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { feedsReducer } from 'react-redux-feed'
+import { feedsReducer } from '../../../lib'
 import thunk from 'redux-thunk'
 
 export default function() {
