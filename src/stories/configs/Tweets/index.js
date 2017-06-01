@@ -3,6 +3,8 @@ import Header from '../../components/Header'
 import Spinner from 'react-spinkit'
 import Tweet from '../../components/Tweet'
 import TweetIcon from 'react-icons/lib/fa/twitter'
+import StopIcon from 'react-icons/lib/fa/circle'
+import ErrorIcon from 'react-icons/lib/fa/exclamation-circle';
 import { isNil } from 'lodash'
 
 const API_ENDPOINT = function(keyword) {
@@ -21,6 +23,21 @@ export default function getFeedConfig(keyword) {
     },
     loaderComponent: function() {
       return <Spinner spinnerName="pulse" fadeIn={0} />
+    },
+    errorComponent () {
+      return (
+        <span style={{color: 'red'}}>
+          <ErrorIcon color='red'/> {' Loading Feed'}
+        </span>
+
+      )
+    },
+    noItemsComponent () {
+      return (
+        <span>
+          <StopIcon color='gray'/>
+        </span>
+      )
     },
     getItems(searchResults) {
       if (isNil(searchResults)) {

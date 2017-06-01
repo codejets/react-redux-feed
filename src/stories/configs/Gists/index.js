@@ -3,6 +3,8 @@ import Header from '../../components/Header'
 import Spinner from 'react-spinkit'
 import Gist from '../../components/Gist'
 import GistIcon from 'react-icons/lib/go/gist'
+import StopIcon from 'react-icons/lib/fa/circle'
+import ErrorIcon from 'react-icons/lib/fa/exclamation-circle';
 import parseLinkHeader from 'parse-link-header'
 import { isNil } from 'lodash'
 
@@ -23,11 +25,27 @@ export default function getFeedConfig(user) {
     loaderComponent: function() {
       return <Spinner spinnerName="pulse" fadeIn={0} />
     },
+    errorComponent () {
+      return (
+        <span style={{color: 'red'}}>
+          <ErrorIcon color='red'/> {' Loading Feed'}
+        </span>
+
+      )
+    },
+    noItemsComponent () {
+      return (
+        <span>
+          <StopIcon color='gray'/>
+        </span>
+      )
+    },
 		getInitialEndpoint(getState) {
 			return API_ENDPOINT(user)
 		},
 		updateEndpoint({headers}) {
 			var details = parseLinkHeader(headers.get('Link'))
+
 			if (isNil(details) || !details.next) {
 				return ''
 			}
