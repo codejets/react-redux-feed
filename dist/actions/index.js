@@ -4,9 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchFeedThunkCreator = exports.UPDATE_PAGINATION = exports.ERROR_RECEIVE_FEED = exports.SUCCESS_RECEIVE_FEED = exports.REQUEST_FEED = undefined;
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 exports.requestFeedActionCreator = requestFeedActionCreator;
 exports.receiveFeedActionCreator = receiveFeedActionCreator;
 exports.errorFeedActionCreator = errorFeedActionCreator;
@@ -130,45 +127,25 @@ var fetchFeedThunkCreator = exports.fetchFeedThunkCreator = function fetchFeedTh
     }
 
     dispatch(requestFeedActionCreator(feedName, direction, endpoint));
-
+    // console.log(`Endpoint called --> ${endpoint}`);
     fetch(endpoint).then(function (response) {
       if (!response.ok) {
-        throw new Error({
-          url: response.url,
-          message: 'Not a successful request'
-        });
+        throw new Error('Request to feed endpoint not successful. Response status ' + response.status + ' returned for ' + response.url);
       }
 
-      try {
-        var nextPageUrl = updateEndpoint(response.clone());
-        if (!(0, _isUrl2.default)(endpoint)) {
-          throw new Error('The endpoint representing subsequent pagination,  ${nextPageUrl} is not a valid url');
-        }
-      } catch (e) {
-        throw new Error('Update endpoint has a problem', e);
-      }
+      var headers = response.headers;
 
-      try {
-        var _hasMoreItems = hasMoreItems(response.clone(), direction);
-      } catch (e) {
-        throw new Error('Your method to determine the existence of further pages is having a problem', e);
-      }
-
-      // `updateEndpoint` and `hasMoreItems` which are provided
-      // by a user can return a Promise or a string or boolean
-      Promise.all([Promise.resolve(nextPageUrl), Promise.resolve(_hasMoreItems)]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2);
-
-        var nextPageUrl = _ref2[0];
-        var _hasMoreItems = _ref2[1];
-
-        dispatch(updatePaginationDetails(feedName, direction, nextPageUrl, _hasMoreItems));
+      return response.json().then(function (results) {
+        var items = getItems(results);
+        var nextPageUrl = updateEndpoint({ headers: headers, results: results, direction: direction });
+        var moreItems = hasMoreItems({ headers: headers, results: results, direction: direction });
+        // console.log(`
+        //   New endpoint to update -> ${nextPageUrl} ${results} from ${endpoint}
+        //   New items are present? ${moreItems}
+        // `);
+        dispatch(updatePaginationDetails(feedName, direction, nextPageUrl, moreItems));
+        dispatch(receiveFeedActionCreator(feedName, direction, items));
       });
-
-      return response.clone().json();
-    }).then(function dispatchSuccesfulFetchAction(items) {
-      items = getItems(items);
-      dispatch(receiveFeedActionCreator(feedName, direction, items));
     }).catch(function dispatchFailureFetchAction(error) {
       dispatch(errorFeedActionCreator(feedName, direction, error.message));
     });

@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -43,10 +41,9 @@ var listStyle = {
 };
 
 var itemsContainerStyle = {
-  height: '500px',
-  overflow: 'auto',
-
-  padding: '20px'
+  height: '600px',
+  overflow: 'hidden',
+  padding: '10px'
 };
 
 var centerAlignLoader = {
@@ -57,10 +54,10 @@ var centerAlignLoader = {
 var Feed = function (_Component) {
   _inherits(Feed, _Component);
 
-  function Feed(props) {
+  function Feed() {
     _classCallCheck(this, Feed);
 
-    return _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).call(this, props));
+    return _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).apply(this, arguments));
   }
 
   _createClass(Feed, [{
@@ -73,28 +70,15 @@ var Feed = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       // if the data source for the feed
       // has changed, we need to refetch it
-      if (this.props.api !== nextProps.api) {
+      if (this.props.getInitialEndpoint() !== nextProps.getInitialEndpoint()) {
         this.props.fetchFeed();
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var items = _props.items;
-      var itemComponent = _props.itemComponent;
-      var itemIdKey = _props.itemIdKey;
-      var name = _props.name;
-      var isFetching = _props.isFetching;
-      var hasMoreItems = _props.hasMoreItems;
-      var headerIcon = _props.headerIcon;
-      var headerComponent = _props.headerComponent;
-      var fetchFeed = _props.fetchFeed;
+      var headerComponent = this.props.headerComponent;
 
-
-      var loadNextPage = function loadNextPage() {
-        fetchFeed('below');
-      };
 
       return _react2.default.createElement(
         Div,
@@ -103,7 +87,7 @@ var Feed = function (_Component) {
           Div,
           itemsContainerStyle,
           headerComponent ? headerComponent() : null,
-          _react2.default.createElement(_InfiniteLoadingStream2.default, _extends({}, this.props, { loadNextPage: loadNextPage }))
+          _react2.default.createElement(_InfiniteLoadingStream2.default, this.props)
         )
       );
     }

@@ -60,10 +60,8 @@ var factory = function factory(types) {
     switch (action.type) {
       case REQUEST:
         return modifyIsFetching(state, feedName, direction, true);
-      case RECEIVE:
-        return modifyIsFetching(state, feedName, direction, false);
       case UPDATE:
-        return modifyEndpoints(state, feedName, direction, action.payload.url, action.payload.hasMoreItems);
+        return (0, _lodash.merge)({}, modifyIsFetching(state, feedName, direction, false), modifyEndpoints(state, feedName, direction, action.payload.url, action.payload.hasMoreItems));
       case ERROR:
         return modifyIsFetching(state, feedName, direction, false);
       default:

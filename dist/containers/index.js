@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -27,22 +29,36 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var isFetching = state.feeds.paginations[feedName] ? state.feeds.paginations[feedName].below.isFetching : false;
   var moreItems = state.feeds.paginations[feedName] ? state.feeds.paginations[feedName].below.hasMoreItems : false;
 
+  var error;
+
+  if (state.feeds.errors[feedName] !== undefined) {
+    var feedError = state.feeds.errors[feedName];
+    if ((typeof feedError === 'undefined' ? 'undefined' : _typeof(feedError)) === 'object' && Object.keys(feedError).length === 0) {
+      error = false;
+    } else if (typeof feedError === 'string' && feedError.length === 0) {
+      error = false;
+    } else {
+      error = feedError;
+    }
+  } else {
+    error = false;
+  }
+
+  var items = [];
+
   // if the feed has been already mounted, our
   // redux store will have an corresponding state slice
   // for the feed
   if (state[_reducers.FEED_REDUCER_KEY].entities[feedName]) {
-    return _extends({
-      items: state.feeds.entities[feedName],
-      isFetching: isFetching,
-      moreItems: moreItems
-    }, ownProps);
-  } else {
-    return _extends({
-      items: [],
-      isFetching: isFetching,
-      moreItems: moreItems
-    }, ownProps);
+    items = state.feeds.entities[feedName];
   }
+
+  return _extends({
+    items: items,
+    isFetching: isFetching,
+    error: error,
+    moreItems: moreItems
+  }, ownProps);
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {

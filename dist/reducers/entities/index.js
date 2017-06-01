@@ -12,6 +12,8 @@ var _actions = require('../../actions');
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// import { uniqBy } from 'lodash'
+
 function feedEntitiesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
@@ -20,6 +22,13 @@ function feedEntitiesReducer() {
   var existingItems = state[feedName] || [];
   switch (action.type) {
     case _actions.SUCCESS_RECEIVE_FEED:
+
+      // console.log(`
+      //   Number of available items -> ${existingItems.length}
+      //   Number of new items -> ${action.payload.items.length}
+      //   Number of unique items -> ${uniqBy(existingItems.concat(action.payload.items), 'id').length}
+      // `);
+
       return _extends({}, state, _defineProperty({}, feedName, existingItems.concat(action.payload.items)));
     default:
       return state;
